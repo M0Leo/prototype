@@ -1,2 +1,2 @@
 # prototype
- A prototype of the graduation project
+A prototype of the graduation project.

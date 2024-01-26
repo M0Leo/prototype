@@ -1,0 +1,19 @@
+<%- include('partials/header') %>
+<div class="container">
+    <% if (typeof message !== 'undefined') { %>
+    <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+    <div class="row">
+        <div>
+            <h1>Upload CV</h1>
+            <form action="/" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="cv">Upload CV</label>
+                    <input type="file" name="cv" id="cv" accept=".pdf">
+                </div>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
