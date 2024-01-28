@@ -1,3 +1,176 @@
-h1 {
-  color: aqua;
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.button {
+  background-color: #4640de;
+  border: none;
+  color: white;
+  padding: 15px 55px;
+  display: inline-block;
+  font-size: 1.2em;
+  cursor: pointer;
+  position: relative;
+  left: 65%;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.job-header {
+  margin: 15px 0px;
+}
+
+.jobs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style-type: none;
+  margin: 0 auto;
+}
+
+.job {
+  width: 500px;
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #bebebf;
+}
+
+.title {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #0d0d0d;
+}
+
+.location {
+  color: rgb(192, 192, 192);
+  padding: 10px 0px;
+  font-size: 1.2em;
 }
