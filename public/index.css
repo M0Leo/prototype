@@ -411,3 +411,10 @@ main {
   padding: 10px 0px;
   font-size: 1.2em;
 }
+
+.error-message {
+  color: red;
+  font-size: 1.2em;
+  text-align: center;
+  margin-bottom: 5px;
+}

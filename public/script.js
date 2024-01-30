@@ -2,6 +2,7 @@ const CvArea = document.querySelector(".cv-area");
 const dragText = document.querySelector(".dragdrop");
 let button = document.querySelector(".browse");
 let input = document.querySelector("input");
+const upload = document.querySelector(".UploadButton");
 let file;
 
 button.onclick = () => {
@@ -40,14 +41,33 @@ function displayFile() {
     let fileReader = new FileReader();
 
     fileReader.onload = () => {
-      let fileURL = fileReader.result;
       dragText.textContent = "";
       const filename = document.createElement("p");
       filename.textContent = file.name;
+
+      const existingFilename = CvArea.querySelector("p");
+      if (existingFilename) {
+        CvArea.removeChild(existingFilename);
+      }
+
       CvArea.appendChild(filename);
     };
     fileReader.readAsDataURL(file);
   } else {
-    alert("This File Not Pdf");
+    alert("This File is not a PDF");
   }
 }
+
+upload.addEventListener("click", function (event) {
+  if (!file) {
+    event.preventDefault();
+    const error = document.createElement("p");
+    error.textContent = "Please upload a file";
+    error.classList.add("error-message");
+    const existingError = CvArea.querySelector(".error-message");
+    if (existingError) {
+      CvArea.removeChild(existingError);
+    }
+    CvArea.appendChild(error);
+  }
+});
