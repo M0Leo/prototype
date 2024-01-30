@@ -11,7 +11,7 @@ app.set("views", path.join(__dirname, "../views"));
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.get("/", (_, res: Response) => {
-  res.render("index");
+  res.render("index", { title: "Home" });
 });
 
 app.get("/jobs", async (_, res: Response) => {
@@ -20,7 +20,7 @@ app.get("/jobs", async (_, res: Response) => {
     res.status(500).send("Error");
     return;
   }
-  res.render("jobs", { jobs });
+  res.render("jobs", { jobs, title: "Jobs"});
 });
 
 app.post("/", uploadCv(), async (req: Request, res: Response) => {
@@ -31,7 +31,7 @@ app.post("/", uploadCv(), async (req: Request, res: Response) => {
       return;
     }
     const jobs = await getJobs(file);
-    res.render("jobs", { jobs });
+    res.render("jobs", { jobs, title : "Jobs"});
   } catch (error) {
     res.status(500).send(error.message);
   }
