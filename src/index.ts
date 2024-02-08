@@ -25,7 +25,6 @@ app.get("/jobs", async (req: Request, res: Response) => {
   };
 
   const jobs = await getJobs(params);
-  console.log(jobs);
   if (!jobs) {
     res.status(500).send("Error");
     return;
