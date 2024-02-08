@@ -14,8 +14,18 @@ app.get("/", (_, res: Response) => {
   res.render("index", { title: "Home" });
 });
 
-app.get("/jobs", async (_, res: Response) => {
-  const jobs = await getJobs();
+app.get("/jobs", async (req: Request, res: Response) => {
+  const { location, job_type, level, skip, limit } = req.query;
+  const params = {
+    location: location ? location.toString() : "",
+    job_type: job_type ? job_type.toString() : "",
+    level: level ? level.toString() : "",
+    skip: skip ? parseInt(skip.toString(), 10) : 0,
+    limit: limit ? parseInt(limit.toString(), 10) : 10,
+  };
+
+  const jobs = await getJobs(params);
+  console.log(jobs);
   if (!jobs) {
     res.status(500).send("Error");
     return;
@@ -30,7 +40,7 @@ app.post("/", uploadCv(), async (req: Request, res: Response) => {
       res.status(400).send("No file uploaded");
       return;
     }
-    const jobs = await getJobs(file);
+    const jobs = await getJobs();
     res.render("jobs", { jobs, title : "Jobs"});
   } catch (error) {
     res.status(500).send(error.message);

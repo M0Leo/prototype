@@ -395,7 +395,7 @@ main {
   width: 700px;
   margin: 10px;
   padding: 15px;
-  border: 1px solid #D6DDEB;
+  border: 1px solid #d6ddeb;
   position: relative;
   background-color: white;
 }
@@ -417,4 +417,37 @@ main {
   font-size: 1.2em;
   text-align: center;
   margin-bottom: 5px;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+aside {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-links {
+  float: left;
+  margin: 10px 0px;
+}
+
+.filter-links h2 {
+  font-size: 1.5em;
+  color: #0d0d0d;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.filter-links a {
+  margin-right: 10px;
+  text-decoration: none;
+  font-size: 1.2em;
+  color: #7c8493;
+}
+
+.filter-links span {
+  color: #7c8493;
 }

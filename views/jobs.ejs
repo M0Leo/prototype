@@ -1,8 +1,27 @@
 <%- include('partials/header') %>
+<div class="main-container">
+<aside>
+    <ul class="filter-links">
+      <h2>Location</h2>
+      <li><a href="/jobs?location=Cairo">Cairo</a></li>
+      <li><a href="/jobs?location=dubai">Dubai</a></li>
+      <li><a href="/jobs?location=maadi">Maadi</a></li>
+      <li><a href="/jobs?location=giza">Giza</a></li>
+      <li><a href="/jobs?location=alexandria">Alexandria</a></li>
+    </ul>
+    <ul class="filter-links">
+      <h2>Type</h2>
+      <li><a href="/jobs?type=full-time">Full Time</a></li>
+      <li><a href="/jobs?type=part-time">Part Time</a></li>
+      <li><a href="/jobs?type=internship">Internship</a></li>
+      <li><a href="/jobs?type=contract">Contract</a></li>
+      <li><a href="/jobs?type=remote">Remote</a></li>
+    </ul>
+</aside>
 <main>
   <ul class=".jobs">
     <% if (jobs.length === 0) { %>
-    <p>No jobs available at the moment.</p>
+    <h2>No jobs available at the moment.</h2>
     <% } else { %>
     <% jobs.forEach(function(job) { %>
     <li>
@@ -16,3 +35,4 @@
   </ul>
   <% } %>
 </main>
+</div>
