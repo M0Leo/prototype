@@ -1,6 +1,6 @@
 <%- include('partials/header') %>
 <div class="main-container">
-<aside>
+  <aside>
     <ul class="filter-links">
       <h2>Location</h2>
       <li><a href="/jobs?location=Cairo">Cairo</a></li>
@@ -17,22 +17,37 @@
       <li><a href="/jobs?type=contract">Contract</a></li>
       <li><a href="/jobs?type=remote">Remote</a></li>
     </ul>
-</aside>
-<main>
-  <ul class=".jobs">
-    <% if (jobs.length === 0) { %>
-    <h2>No jobs available at the moment.</h2>
-    <% } else { %>
-    <% jobs.forEach(function(job) { %>
-    <li>
-      <div class="job">
-        <h2 class="title"><%= job.title %></h2>
-        <p class="location"><%= job.location %></p>
-        <button class="button">Apply</button>
-      </div>
-    </li>
-    <% }); %>
-  </ul>
-  <% } %>
-</main>
+  </aside>
+  <main>
+    <ul class=".jobs">
+      <% if (jobs.length === 0) { %>
+      <h2>No jobs available at the moment.</h2>
+      <% } else { %>
+      <% jobs.forEach(function(job) { %>
+      <li>
+        <div class="job">
+          <h2 class="title"><%= job.title %></h2>
+          <p class="location"><%= job.location %></p>
+          <button class="button">Apply</button>
+        </div>
+      </li>
+      <% }); %>
+    </ul>
+    <% } %>
+    <% if (totalPages > 1) { %>
+    <div class="pagination">
+      <% if (currentPage > 0) { %>
+      <a href="/jobs?page=<%= currentPage - 1 %>&limit=10">Previous</a>
+      <% } %>
+      <% const start = Math.max(0, currentPage - 5); %>
+      <% const end = Math.min(totalPages, start + 10); %>
+      <% for (let i = start; i < end; i++) { %>
+      <a href="/jobs?page=<%= i %>&limit=10" class="<%= i === currentPage ? 'current' : '' %>"><%= i + 1 %></a>
+      <% } %>
+      <% if (currentPage < totalPages - 1) { %>
+      <a href="/jobs?page=<%= currentPage + 1 %>&limit=10">Next</a>
+      <% } %>
+    </div>
+    <% } %>
+  </main>
 </div>

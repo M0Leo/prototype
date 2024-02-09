@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import path from "path";
 import uploadCv from "./uploadCv";
-import getJobs from "./getJobs";
+import getJobs, { Params } from "./getJobs";
 import error from "./middleware/error";
 const app = express();
 const port = 3000;
@@ -15,21 +15,23 @@ app.get("/", (_, res: Response) => {
 });
 
 app.get("/jobs", async (req: Request, res: Response) => {
-  const { location, job_type, level, skip, limit } = req.query;
-  const params = {
+  const { location, job_type, level, page, limit } = req.query;
+  const params: Params = {
     location: location ? location.toString() : "",
     job_type: job_type ? job_type.toString() : "",
     level: level ? level.toString() : "",
-    skip: skip ? parseInt(skip.toString(), 10) : 0,
+    page: page ? parseInt(page.toString(), 10) : 1,
     limit: limit ? parseInt(limit.toString(), 10) : 10,
   };
 
-  const jobs = await getJobs(params);
-  if (!jobs) {
-    res.status(500).send("Error");
-    return;
+  try {
+    const { jobs, page: currentPage, totalPages } = await getJobs(params);
+
+    res.render("jobs", { jobs, title: "Jobs", currentPage, totalPages });
+  } catch (error) {
+    console.error("Error fetching jobs:", error);
+    res.status(500).send("Error fetching jobs");
   }
-  res.render("jobs", { jobs, title: "Jobs"});
 });
 
 app.post("/", uploadCv(), async (req: Request, res: Response) => {
@@ -39,8 +41,9 @@ app.post("/", uploadCv(), async (req: Request, res: Response) => {
       res.status(400).send("No file uploaded");
       return;
     }
-    const jobs = await getJobs();
-    res.render("jobs", { jobs, title : "Jobs"});
+    const { jobs, page: currentPage, totalPages } = await getJobs();
+
+    res.render("jobs", { jobs, title: "Jobs", currentPage, totalPages });
   } catch (error) {
     res.status(500).send(error.message);
   }

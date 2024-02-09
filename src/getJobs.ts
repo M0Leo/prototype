@@ -9,11 +9,11 @@ type Job = {
   level: string;
 };
 
-type Params = {
+export type Params = {
   location: string;
   job_type: string;
   level: string;
-  skip: number;
+  page: number;
   limit: number;
 };
 
@@ -28,23 +28,40 @@ async function readCsv(): Promise<Job[]> {
   });
 }
 
-export default async function getJobs(params?: Params): Promise<Job[]> {
+export interface PaginatedJobs {
+  jobs: Job[];
+  page: number;
+  totalPages: number;
+}
+
+export default async function getJobs(params?: Params): Promise<PaginatedJobs> {
   try {
     const jobs: Job[] = await readCsv();
-    //filter by skip and limit
+    let filteredJobs = jobs;
 
+    // Pagination parameters
+    const page = params?.page || 1;
+    const limit = params?.limit || 10;
+
+    // Filter jobs based on query parameters
     if (params) {
       const { location, job_type, level } = params;
-      return jobs.filter((job) => {
+      filteredJobs = jobs.filter((job) => {
         return (
-          (location ? job.location.toLowerCase().includes(location.toLowerCase()) : true) &&
-          (job_type ? job.job_type.toLowerCase().includes(job_type.toLowerCase()) : true) &&
-          (level ? job.level.toLowerCase().includes(level.toLowerCase()) : true)
+          (!location || job.location.toLowerCase().includes(location.toLowerCase())) &&
+          (!job_type || job.job_type.toLowerCase().includes(job_type.toLowerCase())) &&
+          (!level || job.level.toLowerCase().includes(level.toLowerCase()))
         );
-      }).slice(params.skip, params.skip + params.limit);
+      });
     }
 
-    return jobs;
+    // Paginate the filtered jobs
+    const startIndex = page * limit;
+    const endIndex = startIndex + limit;
+    filteredJobs = filteredJobs.slice(startIndex, endIndex);
+
+    const totalPages = Math.ceil(jobs.length / limit);
+    return { jobs: filteredJobs, page, totalPages};
   } catch (error) {
     throw new Error(`Error fetching jobs: ${error.message}`);
   }
